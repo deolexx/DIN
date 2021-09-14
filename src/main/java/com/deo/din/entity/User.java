@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.swing.*;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity()
@@ -20,5 +22,9 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
     private String username;
+    private String password;
+    private boolean active;
 
+    @ElementCollection(targetClass = Role.class,fetch = FetchType.LAZY)
+    private Set<Role> roles;
 }
