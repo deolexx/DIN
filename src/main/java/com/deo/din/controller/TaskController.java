@@ -17,25 +17,25 @@ public class TaskController {
     TaskRepository taskRepo;
 
 
-    @GetMapping("main")
+    @GetMapping("/main")
     public String getAllTasksWeb(Model model) {
         var tasksFromDB = taskRepo.findAll();
         model.addAttribute("tasks", tasksFromDB);
-        return "index";
+        return "main";
     }
 
 
-    @PostMapping("main")
+    @PostMapping("/main")
     public String createNewTask(@RequestParam String taskName, @RequestParam String taskText, @RequestParam(required = false, defaultValue = "") String tag, Model model) {
         Task task = new Task(taskName, taskText, tag);
         taskRepo.save(task);
         var tasksFromDB = taskRepo.findAll();
         model.addAttribute("tasks", tasksFromDB);
 
-        return "index";
+        return "main";
     }
 
-    @PostMapping("filter")
+    @PostMapping("/filter")
     public String filter(@RequestParam(defaultValue = "") String filter, Model model) {
 
         Iterable<Task> byTag;
@@ -49,7 +49,7 @@ public class TaskController {
         }
 
         model.addAttribute("tasks", byTag);
-        return "index";
+        return "main";
     }
 
 }
