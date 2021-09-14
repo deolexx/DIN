@@ -8,7 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+
 
 @Controller
 public class TaskController {
@@ -17,36 +17,35 @@ public class TaskController {
     TaskRepository taskRepo;
 
 
-
-    @GetMapping("/web")
-    public String getAllTasksWeb(Model model){
+    @GetMapping("main")
+    public String getAllTasksWeb(Model model) {
         var tasksFromDB = taskRepo.findAll();
-        model.addAttribute("tasks",tasksFromDB);
+        model.addAttribute("tasks", tasksFromDB);
         return "index";
     }
 
 
-    @PostMapping("/web")
-    public String createNewTask(@RequestParam String taskName, @RequestParam String taskText, @RequestParam String tag, Model model){
-        Task task = new Task(taskName,taskText,tag);
+    @PostMapping("main")
+    public String createNewTask(@RequestParam String taskName, @RequestParam String taskText, @RequestParam(required = false, defaultValue = "") String tag, Model model) {
+        Task task = new Task(taskName, taskText, tag);
         taskRepo.save(task);
         var tasksFromDB = taskRepo.findAll();
-        model.addAttribute("tasks",tasksFromDB);
+        model.addAttribute("tasks", tasksFromDB);
 
         return "index";
     }
 
     @PostMapping("filter")
-    public String filter(@RequestParam String filter, Model model){
+    public String filter(@RequestParam(defaultValue = "") String filter, Model model) {
 
         Iterable<Task> byTag;
 
 
-        if(filter!=null&&filter.isBlank()){
-            byTag=  taskRepo.findAll();
+        if (filter != null && filter.isBlank()) {
+            byTag = taskRepo.findAll();
 
-        }else {
-            byTag= taskRepo.findByTag(filter);
+        } else {
+            byTag = taskRepo.findByTag(filter);
         }
 
         model.addAttribute("tasks", byTag);
