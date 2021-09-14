@@ -1,5 +1,6 @@
 package com.deo.din.entity;
 
+import com.deo.din.TaskStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,11 +25,26 @@ public class Task {
     @NotBlank(message = "Message needed")
     private String text;
 
+    private String tag;
 
+
+    public TaskStatus taskStatus;
 
 
     public Task(String name, String text) {
         this.name = name;
         this.text = text;
+    }
+
+    public Task(String name, String text, TaskStatus taskStatus) {
+        this.name = name;
+        this.text = text;
+        this.taskStatus = taskStatus;
+    }
+
+    public Task(String name, String text, String tag) {
+        this.name = name;
+        this.text = text;
+        this.tag = tag;
     }
 }

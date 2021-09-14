@@ -6,4 +6,8 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.UUID;
 
 public interface TaskRepository extends CrudRepository<Task, UUID> {
+
+   Iterable<Task> findByTag(String tag);
+
+
 }

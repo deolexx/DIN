@@ -27,12 +27,29 @@ public class TaskController {
 
 
     @PostMapping("/web")
-    public String createNewTask(@RequestParam String taskName, @RequestParam String taskText, Model model){
-        Task task = new Task(taskName,taskText);
+    public String createNewTask(@RequestParam String taskName, @RequestParam String taskText, @RequestParam String tag, Model model){
+        Task task = new Task(taskName,taskText,tag);
         taskRepo.save(task);
         var tasksFromDB = taskRepo.findAll();
         model.addAttribute("tasks",tasksFromDB);
 
+        return "index";
+    }
+
+    @PostMapping("filter")
+    public String filter(@RequestParam String filter, Model model){
+
+        Iterable<Task> byTag;
+
+
+        if(filter!=null&&filter.isBlank()){
+            byTag=  taskRepo.findAll();
+
+        }else {
+            byTag= taskRepo.findByTag(filter);
+        }
+
+        model.addAttribute("tasks", byTag);
         return "index";
     }
 
