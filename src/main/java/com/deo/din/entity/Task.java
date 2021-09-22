@@ -27,6 +27,8 @@ public class Task {
 
     private String tag;
 
+    private boolean isComplete;
+
 
     public TaskStatus taskStatus;
 
@@ -36,15 +38,17 @@ public class Task {
         this.text = text;
     }
 
-    public Task(String name, String text, TaskStatus taskStatus) {
+    public Task(String name, String text, TaskStatus taskStatus, boolean isComplete) {
         this.name = name;
         this.text = text;
         this.taskStatus = taskStatus;
+        this.isComplete= isComplete;
     }
 
-    public Task(String name, String text, String tag) {
+    public Task(String name, String text, String tag, boolean isComplete) {
         this.name = name;
         this.text = text;
         this.tag = tag;
+        this.isComplete= isComplete;
     }
 }

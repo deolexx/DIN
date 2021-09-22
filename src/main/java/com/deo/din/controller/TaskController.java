@@ -27,7 +27,7 @@ public class TaskController {
 
     @PostMapping("/main")
     public String createNewTask(@RequestParam String taskName, @RequestParam String taskText, @RequestParam(required = false, defaultValue = "") String tag, Model model) {
-        Task task = new Task(taskName, taskText, tag);
+        Task task = new Task(taskName, taskText, tag,false);
         taskRepo.save(task);
         var tasksFromDB = taskRepo.findAll();
         model.addAttribute("tasks", tasksFromDB);
@@ -49,6 +49,15 @@ public class TaskController {
         }
 
         model.addAttribute("tasks", byTag);
+        return "main";
+    }
+
+    @PostMapping("/completed")
+    public String completed(@RequestParam String completed,Model model){
+        if (completed.equals("true")){
+            System.out.println("true");
+        }
+
         return "main";
     }
 

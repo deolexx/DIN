@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/mystyle.css">
   <title>DoItNow</title>
 </head>
 <body>
@@ -30,6 +31,11 @@
         <b>{{name}}</b>
         <span>{{text}}</span>
         <i>{{tag}}</i>
+        <form method="post" action="/completed">
+            <input type="checkbox" id="completed" name="completed" value="true">
+            <label for="completed">Complete</label>
+        </form>
+        {{isComplete}}
         <br>
     {{/tasks}}
 
